@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flame/flame.dart';
+import 'dart:math' show Random;
 import 'asset_loader.dart';
+
+
+int randomSelector(){
+  Random _random = new Random();
+  return _random.nextInt(1000)%2;
+}
 
 class E40HomePage extends StatefulWidget{
   @override
@@ -9,6 +16,7 @@ class E40HomePage extends StatefulWidget{
 }
 
 class _E40HomePageState extends State<E40HomePage> with SingleTickerProviderStateMixin{
+  var answerImagePlaceholder;
   E40Assets assets = new E40Assets();
   AnimationController controller;
   Animation<double> animation;
@@ -28,9 +36,35 @@ class _E40HomePageState extends State<E40HomePage> with SingleTickerProviderStat
     controller.forward();
   }
 
+  Future sound(int answer) {
+    controller.animateTo(3.5, duration: new Duration(milliseconds: 2500), curve: Curves.elasticInOut);
+    return Flame.audio.play(assets.yepOrNopeAudioArray[answer]);
+  }
+
+  void clearView(){
+    setState(() {
+      answerImagePlaceholder = null;
+    });
+  }
+
+  Future wisdom() async{
+    int _answer = randomSelector();
+    clearView();
+    sound(_answer);
+    int even=0, odd =0;
+    for(int i=0; i < 10; i++){
+      randomSelector()%2==0?even++:odd++;
+    }
+    print((even/10)*100);
+    print((odd/10)*100);
+    await new Future.delayed(new Duration(seconds:1, microseconds: 50));
+    setState(() {
+      answerImagePlaceholder = assets.yepOrNopeImageArray[_answer];
+    });
+  }
 
   Widget build(BuildContext context) {
-    Image _E40Image = new Image(image:  new AssetImage('assets/img/e40.png'), width: 140.0, height: 140.0,);
+    Image _e40Image = new Image(image:  new AssetImage('assets/img/e40.png'), width: 140.0, height: 140.0,);
     return new Scaffold(
         body: new Container(
           decoration: new BoxDecoration(color: Colors.black),
@@ -40,14 +74,15 @@ class _E40HomePageState extends State<E40HomePage> with SingleTickerProviderStat
               children: <Widget>[
                 new SizedBox(
                   height: 250.0,
+                  child:answerImagePlaceholder,
                 ),
                 new Container(
                   height: 140.0,
                   width: animation.value*140.0,
                   child: new FloatingActionButton(
-                    onPressed: null,
+                    onPressed: wisdom,
                     backgroundColor: Colors.white,
-                    child: _E40Image,
+                    child: _e40Image,
                   ),
                 ),
                 new SizedBox(
@@ -60,3 +95,4 @@ class _E40HomePageState extends State<E40HomePage> with SingleTickerProviderStat
     );
   }
 }
+
