@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flame/flame.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'dart:math' show Random;
 import 'asset_loader.dart';
 
@@ -57,9 +58,9 @@ class _E40HomePageState extends State<E40HomePage> with SingleTickerProviderStat
     }
     print((even/10)*100);
     print((odd/10)*100);
-    await new Future.delayed(new Duration(seconds:1, microseconds: 50));
+    await new Future.delayed(new Duration(seconds:0, milliseconds: 400));
     setState(() {
-      answerImagePlaceholder = assets.yepOrNopeImageArray[_answer];
+      answerImagePlaceholder = assets.yepOrNopeFlareAnimationArray[_answer];
     });
   }
 

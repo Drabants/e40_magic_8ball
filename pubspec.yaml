@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^0.1.2
   flame: "^0.9.5"
+  flare_flutter:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -26,3 +28,5 @@ flutter:
     - assets/img/yup1.png
     - assets/audio/nope.mp3
     - assets/audio/yep.mp3
+    - assets/flare/yep.flr
+    - assets/flare/nope.flr
