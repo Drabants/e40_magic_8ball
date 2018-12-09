@@ -79,10 +79,12 @@ class _E40HomePageState extends State<E40HomePage> with SingleTickerProviderStat
                 new Container(
                   height: 140.0,
                   width: animation.value*140.0,
-                  child: new FloatingActionButton(
+                  child:
+                  new FloatingActionButton(
                     onPressed: wisdom,
                     backgroundColor: Colors.white,
                     child: _e40Image,
+                    clipBehavior: Clip.antiAlias,
                   ),
                 ),
                 new SizedBox(
