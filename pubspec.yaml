@@ -22,10 +22,6 @@ flutter:
 
   assets:
     - assets/img/e40.png
-    - assets/img/nope.png
-    - assets/img/yup.png
-    - assets/img/nope1.png
-    - assets/img/yup1.png
     - assets/audio/nope.mp3
     - assets/audio/yep.mp3
     - assets/flare/yep.flr
