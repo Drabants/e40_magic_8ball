@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flame/flame.dart';
-import 'package:flare_flutter/flare_actor.dart';
+import 'package:sensors/sensors.dart';
 import 'dart:math' ;
 import 'asset_loader.dart';
 
@@ -27,6 +27,9 @@ class _E40HomePageState extends State<E40HomePage> with SingleTickerProviderStat
 
   void initState(){
     super.initState();
+    int lastUpdate = 0;
+    double _detectionThreshold = .5;
+    double lastX=0, lastY=0, lastZ=0;
     Flame.audio.loadAll(['nope.mp3', 'yep.mp3']);
     controller = new AnimationController(duration: new Duration(milliseconds: 2000), vsync: this);
     animation = new CurvedAnimation(parent: controller, curve: Curves.easeIn);
@@ -36,6 +39,38 @@ class _E40HomePageState extends State<E40HomePage> with SingleTickerProviderStat
     animation.addStatusListener((AnimationStatus status){
     });
     controller.forward();
+    accelerometerEvents.listen((AccelerometerEvent event){
+      DateTime curTime = DateTime.now();
+      if((lastUpdate) > 5) {
+        int diffTime = (curTime.millisecond - lastUpdate);
+        print(lastUpdate);
+        double x = event.x;
+        double y = event.y;
+        double z = event.z;
+        double speed = ((x+y+z - lastX - lastY - lastZ)/(diffTime/10));
+        speed.abs();
+        if(speed > 0) {
+          print("Movement Detected!!!!!!!");
+          print(speed);
+        }
+        if (speed > _detectionThreshold) {
+          sleep();
+          wisdom();
+          lastUpdate = 0;
+        }
+        lastX = x;
+        lastY = y;
+        lastZ = z;
+
+      }
+      else{
+        lastUpdate += curTime.second;
+      }
+    });
+  }
+
+  Future sleep(){
+    return new Future.delayed(new Duration(milliseconds: 4000000000));
   }
 
   Future sound(int answer) {
