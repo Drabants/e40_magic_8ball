@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flame/flame.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'dart:math' show Random;
+import 'dart:math' ;
 import 'asset_loader.dart';
 
 
@@ -9,6 +9,7 @@ int randomSelector(){
   Random _random = new Random();
   return _random.nextInt(1000)%2;
 }
+
 
 class E40HomePage extends StatefulWidget{
   @override
@@ -66,6 +67,8 @@ class _E40HomePageState extends State<E40HomePage> with SingleTickerProviderStat
 
   Widget build(BuildContext context) {
     Image _e40Image = new Image(image:  new AssetImage('assets/img/e40.png'), width: 140.0, height: 140.0,);
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
     return new Scaffold(
         body: new Container(
           decoration: new BoxDecoration(color: Colors.black),
@@ -73,23 +76,22 @@ class _E40HomePageState extends State<E40HomePage> with SingleTickerProviderStat
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new SizedBox(
-                  height: 250.0,
+                new Container(
+                  height: queryData.size.height/2.5,
                   child:answerImagePlaceholder,
                 ),
                 new Container(
-                  height: 140.0,
+                  height: queryData.size.height/2,
                   width: animation.value*140.0,
-                  child:
-                  new FloatingActionButton(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, queryData.size.height/4),
+                  child: Container(
+                  child:new FloatingActionButton(
                     onPressed: wisdom,
                     backgroundColor: Colors.white,
                     child: _e40Image,
                     clipBehavior: Clip.antiAlias,
                   ),
-                ),
-                new SizedBox(
-                  height:170.0,
+                  ),
                 ),
               ],
             ),
