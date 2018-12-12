@@ -14,7 +14,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="e40_magic_8ball"
+        android:label="E-40 Magic 8Ball"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
