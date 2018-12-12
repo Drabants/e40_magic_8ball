@@ -69,10 +69,9 @@ class _E40HomePageState extends State<E40HomePage> with SingleTickerProviderStat
 
   void detectShake(){
     accelerometerEvents.listen((AccelerometerEvent event){
-      //check if 4 seconds have passed and the app is currently active
+      //check if 3 seconds have passed and the app is currently active
       //this prevents excessive answering by E40
-      if((shakeTimer.elapsed.inSeconds) > 4 && active) {
-        print(shakeTimer.elapsed.inSeconds);
+      if((shakeTimer.elapsed.inSeconds) > 3 && active) {
         double x = event.x;
         double y = event.y;
         double z = event.z;
